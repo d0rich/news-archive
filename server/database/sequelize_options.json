@@ -10,6 +10,6 @@
     }
   },
   "define": {
-    "timestamps": true
+    "timestamps": false
   }
 }
