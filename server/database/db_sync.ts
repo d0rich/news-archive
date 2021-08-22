@@ -1,4 +1,4 @@
-import { initModels } from '~/server/database/models/init-models'
+import { initModels } from './models/init-models'
 
 const { Sequelize } = require('sequelize')
 
