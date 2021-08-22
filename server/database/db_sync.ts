@@ -1,3 +1,5 @@
+import { initModels } from '~/server/database/models/init-models'
+
 const { Sequelize } = require('sequelize')
 
 export const initDb = () => {
@@ -14,4 +16,6 @@ export const initDb = () => {
     })
     // eslint-disable-next-line no-console
     .catch((err: any) => console.error(err))
+
+  return initModels(sequelize)
 }
