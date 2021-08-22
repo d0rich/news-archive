@@ -7,7 +7,6 @@ export interface EditionsAttributes {
   id: number;
   name: string;
   baseUrl: string;
-  language: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,7 +20,6 @@ export class Editions extends Model<EditionsAttributes, EditionsCreationAttribut
   id!: number;
   name!: string;
   baseUrl!: string;
-  language!: string;
   createdAt!: Date;
   updatedAt!: Date;
 
@@ -53,10 +51,6 @@ export class Editions extends Model<EditionsAttributes, EditionsCreationAttribut
     },
     baseUrl: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    language: {
-      type: DataTypes.STRING(2),
       allowNull: false
     }
   }, {

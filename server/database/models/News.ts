@@ -13,6 +13,7 @@ export interface NewsAttributes {
   createdAt: Date;
   updatedAt: Date;
   sourceUrl?: string;
+  locale: string;
 }
 
 export type NewsPk = "publicationDate" | "titleUrl" | "editionId";
@@ -30,6 +31,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
   createdAt!: Date;
   updatedAt!: Date;
   sourceUrl?: string;
+  locale!: string;
 
   // News belongsTo Editions via editionId
   edition!: Editions;
@@ -74,6 +76,10 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
     sourceUrl: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    locale: {
+      type: DataTypes.STRING(2),
+      allowNull: false
     }
   }, {
     sequelize,
@@ -85,6 +91,12 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
         name: "news_createdat_index",
         fields: [
           { name: "createdAt", order: "DESC" },
+        ]
+      },
+      {
+        name: "news_locale_index",
+        fields: [
+          { name: "locale" },
         ]
       },
       {
