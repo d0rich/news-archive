@@ -1,0 +1,15 @@
+{
+  "logging": false,
+  "host": "ec2-54-228-139-34.eu-west-1.compute.amazonaws.com",
+  "dialect": "postgres",
+  "protocol": "postgres",
+  "dialectOptions": {
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false
+    }
+  },
+  "define": {
+    "timestamps": true
+  }
+}

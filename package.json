@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "node-schedule": "^2.0.0",
     "nuxt": "^2.15.7",
+    "pg": "^8.7.1",
     "sequelize": "^6.6.5"
   },
   "devDependencies": {
