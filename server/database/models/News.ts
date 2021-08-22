@@ -12,11 +12,12 @@ export interface NewsAttributes {
   html: string;
   createdAt: Date;
   updatedAt: Date;
+  sourceUrl?: string;
 }
 
 export type NewsPk = "publicationDate" | "titleUrl" | "editionId";
 export type NewsId = News[NewsPk];
-export type NewsOptionalAttributes = "publicationDate" | "titleUrl" | "editionId" | "createdAt" | "updatedAt";
+export type NewsOptionalAttributes = "publicationDate" | "titleUrl" | "editionId" | "createdAt" | "updatedAt" | "sourceUrl";
 export type NewsCreationAttributes = Optional<NewsAttributes, NewsOptionalAttributes>;
 
 export class News extends Model<NewsAttributes, NewsCreationAttributes> implements NewsAttributes {
@@ -28,6 +29,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
   html!: string;
   createdAt!: Date;
   updatedAt!: Date;
+  sourceUrl?: string;
 
   // News belongsTo Editions via editionId
   edition!: Editions;
@@ -68,6 +70,10 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
     html: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    sourceUrl: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

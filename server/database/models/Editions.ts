@@ -6,7 +6,7 @@ import type { News, NewsId } from './News';
 export interface EditionsAttributes {
   id: number;
   name: string;
-  base_url: string;
+  baseUrl: string;
   language: string;
   createdAt: Date;
   updatedAt: Date;
@@ -20,7 +20,7 @@ export type EditionsCreationAttributes = Optional<EditionsAttributes, EditionsOp
 export class Editions extends Model<EditionsAttributes, EditionsCreationAttributes> implements EditionsAttributes {
   id!: number;
   name!: string;
-  base_url!: string;
+  baseUrl!: string;
   language!: string;
   createdAt!: Date;
   updatedAt!: Date;
@@ -51,7 +51,7 @@ export class Editions extends Model<EditionsAttributes, EditionsCreationAttribut
       type: DataTypes.STRING(100),
       allowNull: false
     },
-    base_url: {
+    baseUrl: {
       type: DataTypes.STRING,
       allowNull: false
     },
