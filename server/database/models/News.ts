@@ -14,11 +14,12 @@ export interface NewsAttributes {
   updatedAt: Date;
   sourceUrl?: string;
   locale: string;
+  description?: string;
 }
 
 export type NewsPk = "publicationDate" | "titleUrl" | "editionId";
 export type NewsId = News[NewsPk];
-export type NewsOptionalAttributes = "publicationDate" | "titleUrl" | "editionId" | "createdAt" | "updatedAt" | "sourceUrl";
+export type NewsOptionalAttributes = "publicationDate" | "titleUrl" | "editionId" | "createdAt" | "updatedAt" | "sourceUrl" | "description";
 export type NewsCreationAttributes = Optional<NewsAttributes, NewsOptionalAttributes>;
 
 export class News extends Model<NewsAttributes, NewsCreationAttributes> implements NewsAttributes {
@@ -32,6 +33,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
   updatedAt!: Date;
   sourceUrl?: string;
   locale!: string;
+  description?: string;
 
   // News belongsTo Editions via editionId
   edition!: Editions;
@@ -80,6 +82,10 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
     locale: {
       type: DataTypes.STRING(2),
       allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
