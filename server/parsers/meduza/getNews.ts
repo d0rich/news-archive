@@ -22,7 +22,8 @@ const to2Letters = (num: number) => {
 export const getNews = (newsToParse: NewsToCheck[]) => {
   newsToParse.forEach(async (news: NewsToCheck) => {
     const response =
-      await axios.get(`https://meduza.io/api/v3/news/${news.publicationDate.getFullYear()}` +
+      await axios.get(`https://meduza.io/api/v3/${news.locale === 'ru' ? '' : news.locale + '/'}news/` +
+      `${news.publicationDate.getFullYear()}` +
       `/${to2Letters(news.publicationDate.getMonth() + 1)}/` +
       `${to2Letters(news.publicationDate.getDate())}/${news.titleUrl}`)
     const meduzaNews: MeduzaNews = response.data.root
@@ -38,6 +39,6 @@ export const getNews = (newsToParse: NewsToCheck[]) => {
       sourceUrl: `https://meduza.io/${meduzaNews.url}`
     })
     // eslint-disable-next-line no-console
-    console.log(`Fresh news from Meduza ${meduzaNews.title}: ${meduzaNews.description}`)
+    console.log(`Fresh news from Meduza:\n${meduzaNews.title}:\n${meduzaNews.description}`)
   })
 }
