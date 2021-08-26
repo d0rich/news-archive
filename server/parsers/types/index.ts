@@ -6,3 +6,8 @@ export type NewsToCheck = {
   editionId: number,
   locale: Language
 }
+
+export type EditionsNews = {
+  meduza: NewsToCheck[],
+  cnn: NewsToCheck[]
+}

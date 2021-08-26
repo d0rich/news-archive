@@ -1,5 +1,5 @@
-import { NewsToCheck } from '../types'
-import { models } from '../../server'
+import { models } from '../server'
+import { EditionsNews, NewsToCheck } from './types'
 
 export const checkDatabase = async (newsToCheck: NewsToCheck[]) => {
   const filters = await Promise.all(newsToCheck.map(async (news) => {
@@ -15,4 +15,11 @@ export const checkDatabase = async (newsToCheck: NewsToCheck[]) => {
   }))
 
   return newsToCheck.filter((_v, index) => filters[index])
+}
+
+export const checkAllEditionsNews = async (newsToCheck: EditionsNews) => {
+  return {
+    meduza: await checkDatabase(newsToCheck.meduza),
+    cnn: await checkDatabase(newsToCheck.cnn)
+  }
 }

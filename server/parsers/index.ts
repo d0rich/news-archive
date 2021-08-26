@@ -1,13 +1,19 @@
 import { checkMeduzaFeed } from './meduza/checkFeed'
-import { checkDatabase } from './meduza/checkDatabase'
-import { getNews } from './meduza/getNews'
+import { checkAllEditionsNews } from './checkDatabase'
+import { getAllNews } from './getAllNews'
+import { EditionsNews } from './types'
 
 export const parseAll = async () => {
-  let meduzaNews = await checkMeduzaFeed()
+  const editionsAllNews: EditionsNews = {
+    meduza: await checkMeduzaFeed(),
+    cnn: []
+  }
+  let newsCount = editionsAllNews.meduza.length + editionsAllNews.cnn.length
   // eslint-disable-next-line no-console
-  console.log('Check news. News found:', meduzaNews.length)
-  meduzaNews = await checkDatabase(meduzaNews)
+  console.log(`Check news. News found: ${newsCount}`)
+  const editionsFreshNews: EditionsNews = await checkAllEditionsNews(editionsAllNews)
+  newsCount = editionsFreshNews.meduza.length + editionsFreshNews.cnn.length
   // eslint-disable-next-line no-console
-  console.log('Fresh news:', meduzaNews.length)
-  await getNews(meduzaNews)
+  console.log(`Fresh news: ${newsCount}`)
+  await getAllNews(editionsFreshNews)
 }

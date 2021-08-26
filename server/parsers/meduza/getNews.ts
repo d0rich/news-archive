@@ -19,7 +19,7 @@ const to2Letters = (num: number) => {
   return `${num}`
 }
 
-export const getNews = (newsToParse: NewsToCheck[]) => {
+export const getMeduzaNews = (newsToParse: NewsToCheck[]) => {
   newsToParse.forEach(async (news: NewsToCheck) => {
     const response =
       await axios.get(`https://meduza.io/api/v3/${news.locale === 'ru' ? '' : news.locale + '/'}news/` +
@@ -39,6 +39,6 @@ export const getNews = (newsToParse: NewsToCheck[]) => {
       sourceUrl: `https://meduza.io/${meduzaNews.url}`
     })
     // eslint-disable-next-line no-console
-    console.log(`Fresh news from Meduza:\n${meduzaNews.title}:\n${meduzaNews.description}`)
+    console.log(`Fresh news from Meduza:\n   ${meduzaNews.title}:\n   ${meduzaNews.description}`)
   })
 }
