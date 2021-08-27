@@ -28,8 +28,10 @@ const checkFeedWithConfig = async (locale: Language, page: number = 0, perPage: 
 }
 
 export const checkMeduzaFeed = async () => {
+  console.log('Check meduza news...')
   const ruNews = checkFeedWithConfig('ru')
   const enNews = checkFeedWithConfig('en')
   const [fetchedRuNews, fetchedEnNews] = await Promise.all([ruNews, enNews])
+  console.log('Meduza news checked')
   return [...fetchedRuNews, ...fetchedEnNews]
 }

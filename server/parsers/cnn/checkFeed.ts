@@ -3,6 +3,7 @@ import { NewsToCheck } from '../support/types'
 import { getDynamicPageHTML } from '../getPageHTML'
 
 export const checkCnnFeed = async () => {
+  console.log('Checking CNN news...')
   const feedPage = await getDynamicPageHTML('https://edition.cnn.com/')
   const $ = cheerio.load(feedPage)
   let newsNodes: NodeWithChildren[] = []
@@ -29,5 +30,6 @@ export const checkCnnFeed = async () => {
       url: href?.slice(1)
     }
   })
+  console.log('CNN news checked')
   return news
 }
