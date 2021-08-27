@@ -1,4 +1,5 @@
 import { checkMeduzaFeed } from './meduza/checkFeed'
+import { checkCnnFeed } from './cnn/checkFeed'
 import { checkAllEditionsNews } from './checkDatabase'
 import { getAllNews } from './getAllNews'
 import { EditionsNews } from './types'
@@ -6,7 +7,7 @@ import { EditionsNews } from './types'
 export const parseAll = async () => {
   const editionsAllNews: EditionsNews = {
     meduza: await checkMeduzaFeed(),
-    cnn: []
+    cnn: await checkCnnFeed()
   }
   let newsCount = editionsAllNews.meduza.length + editionsAllNews.cnn.length
   // eslint-disable-next-line no-console
