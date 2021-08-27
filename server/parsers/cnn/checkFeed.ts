@@ -14,7 +14,7 @@ export const checkCnnFeed = async () => {
   newsNodes = newsNodes.filter((node) => {
     const href = $('a', node).attr('href')
     // @ts-ignore
-    return !isNaN(+href?.split('/')[1]) && href?.split('/').length === 7
+    return !isNaN(+href?.split('/')[1]) && !isNaN(+href?.split('/')[2]) && href?.split('/').length === 7
   })
   const news: NewsToCheck[] = newsNodes.map((node) => {
     const href = $('a', node).attr('href')
