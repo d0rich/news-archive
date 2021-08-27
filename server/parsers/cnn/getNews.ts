@@ -9,9 +9,9 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
   const promises = newsToParse.map(async (news: NewsToCheck) => {
     const newsPage = await getStaticPageHTML('https://edition.cnn.com/' + news.url)
     const $ = cheerio.load(newsPage)
-    const title = $('h1.pg-headline', '.l-container').text()
+    const title = $('h1.pg-headline').text()
     // @ts-ignore
-    const content: string = $('section#body-text', 'article > .l-container > div > div > div').html()
+    const content: string = $('section#body-text').html()
     try {
       await models.News.create({
         publicationDate:
