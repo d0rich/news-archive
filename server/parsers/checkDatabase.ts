@@ -1,5 +1,5 @@
 import { models } from '../server'
-import { EditionsNews, NewsToCheck } from './types'
+import { EditionsNews, NewsToCheck } from './support/types'
 
 export const checkDatabase = async (newsToCheck: NewsToCheck[]) => {
   const filters = await Promise.all(newsToCheck.map(async (news) => {

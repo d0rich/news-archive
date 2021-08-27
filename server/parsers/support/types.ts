@@ -4,7 +4,8 @@ export type NewsToCheck = {
   publicationDate: Date,
   titleUrl: string,
   editionId: number,
-  locale: Language
+  locale: Language,
+  url: string | undefined
 }
 
 export type EditionsNews = {

@@ -1,5 +1,5 @@
 import cheerio, { NodeWithChildren } from 'cheerio'
-import { NewsToCheck } from '../types'
+import { NewsToCheck } from '../support/types'
 import { getDynamicPageHTML } from '../getPageHTML'
 
 export const checkCnnFeed = async () => {
@@ -25,7 +25,8 @@ export const checkCnnFeed = async () => {
       publicationDate: new Date(`${year}-${month}-${day}`),
       titleUrl,
       editionId: 2,
-      locale: 'en'
+      locale: 'en',
+      url: href?.slice(1)
     }
   })
   return news

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { NewsToCheck, Language } from '../types'
+import { NewsToCheck, Language } from '../support/types'
 
 const checkFeedWithConfig = async (locale: Language, page: number = 0, perPage: number = 24) => {
   const feed: any = await axios
@@ -19,7 +19,8 @@ const checkFeedWithConfig = async (locale: Language, page: number = 0, perPage: 
         publicationDate: new Date(`${year}-${month}-${day}`),
         titleUrl,
         editionId: 1,
-        locale
+        locale,
+        url: undefined
       })
     }
   }

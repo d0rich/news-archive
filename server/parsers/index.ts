@@ -2,7 +2,7 @@ import { checkMeduzaFeed } from './meduza/checkFeed'
 import { checkCnnFeed } from './cnn/checkFeed'
 import { checkAllEditionsNews } from './checkDatabase'
 import { getAllNews } from './getAllNews'
-import { EditionsNews } from './types'
+import { EditionsNews } from './support/types'
 
 export const parseAll = async () => {
   const editionsAllNews: EditionsNews = {

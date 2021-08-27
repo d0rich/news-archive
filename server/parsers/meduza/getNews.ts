@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { NewsToCheck } from '../types'
+import { NewsToCheck } from '../support/types'
 import { models } from '../../server'
+import { to2Letters } from '../support/functions'
 const { convert } = require('html-to-text')
 
 type MeduzaNews = {
@@ -14,13 +15,8 @@ type MeduzaNews = {
   pub_date: string
 }
 
-const to2Letters = (num: number) => {
-  if (num < 10) { return `0${num}` }
-  return `${num}`
-}
-
-export const getMeduzaNews = (newsToParse: NewsToCheck[]) => {
-  newsToParse.forEach(async (news: NewsToCheck) => {
+export const getMeduzaNews = async (newsToParse: NewsToCheck[]) => {
+  const promises = newsToParse.map(async (news: NewsToCheck) => {
     const response =
       await axios.get(`https://meduza.io/api/v3/${news.locale === 'ru' ? '' : news.locale + '/'}news/` +
       `${news.publicationDate.getFullYear()}` +
@@ -41,4 +37,5 @@ export const getMeduzaNews = (newsToParse: NewsToCheck[]) => {
     // eslint-disable-next-line no-console
     console.log(`Fresh news from Meduza:\n   ${meduzaNews.title}:\n   ${meduzaNews.description}`)
   })
+  await Promise.all(promises)
 }
