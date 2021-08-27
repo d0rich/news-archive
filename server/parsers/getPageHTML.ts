@@ -1,7 +1,7 @@
 import Nightmare from 'nightmare'
 import axios from 'axios'
 
-const nightmare = new Nightmare({ show: true })
+const nightmare = new Nightmare({ show: false })
 
 export const getDynamicPageHTML = async (url: string) => {
   // @ts-ignore
