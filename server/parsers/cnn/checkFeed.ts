@@ -29,6 +29,5 @@ export const checkCnnFeed = async () => {
       url: href?.slice(1)
     }
   })
-  console.log('CNN news checked')
   return news
 }
