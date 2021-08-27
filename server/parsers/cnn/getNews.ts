@@ -30,6 +30,7 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
       // eslint-disable-next-line no-console
       console.log(`Fresh news from CNN:\n   ${title}:\n   ${convert(content).slice(0, 100)}...`)
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(`Failed to save CNN news (${e.message}):`, {
         publicationDate:
           `${news.publicationDate.getFullYear()}` +
