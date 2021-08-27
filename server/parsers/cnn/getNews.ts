@@ -12,22 +12,34 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
     const title = $('h1.pg-headline', '.l-container').text()
     // @ts-ignore
     const content: string = $('section#body-text', 'article > .l-container > div > div > div').html()
-    await models.News.create({
-      publicationDate:
-        `${news.publicationDate.getFullYear()}` +
-        `-${to2Letters(news.publicationDate.getMonth())}` +
-        `-${to2Letters(news.publicationDate.getDate())}`,
-      title,
-      content: convert(content),
-      html: content,
-      locale: news.locale,
-      description: `${convert(content).slice(0, 50)}...`,
-      editionId: news.editionId,
-      titleUrl: news.titleUrl,
-      sourceUrl: news.url
-    })
-    // eslint-disable-next-line no-console
-    console.log(`Fresh news from CNN:\n   ${title}:\n   ${convert(content).slice(0, 100)}...`)
+    try {
+      await models.News.create({
+        publicationDate:
+          `${news.publicationDate.getFullYear()}` +
+          `-${to2Letters(news.publicationDate.getMonth() + 1)}` +
+          `-${to2Letters(news.publicationDate.getDate())}`,
+        title,
+        content: convert(content),
+        html: content,
+        locale: news.locale,
+        description: `${convert(content).slice(0, 50)}...`,
+        editionId: news.editionId,
+        titleUrl: news.titleUrl,
+        sourceUrl: news.url
+      })
+      // eslint-disable-next-line no-console
+      console.log(`Fresh news from CNN:\n   ${title}:\n   ${convert(content).slice(0, 100)}...`)
+    } catch (e) {
+      console.error(`Failed to save CNN news (${e.message}):`, {
+        publicationDate:
+          `${news.publicationDate.getFullYear()}` +
+          `-${to2Letters(news.publicationDate.getMonth() + 1)}` +
+          `-${to2Letters(news.publicationDate.getDate())}`,
+        title,
+        editionId: news.editionId,
+        sourceUrl: news.url
+      })
+    }
   })
   await Promise.all(promises)
 }
