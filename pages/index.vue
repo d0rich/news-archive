@@ -21,8 +21,9 @@ import { to2Letters } from '~/server/parsers/support/functions'
 export default Vue.extend({
   name: 'HomePage',
   data () {
+    const monthlyFeed: any[] = []
     return {
-      monthlyFeed: []
+      monthlyFeed
     }
   },
   async fetch () {
