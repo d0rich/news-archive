@@ -5,6 +5,27 @@ import { to2Letters } from '../parsers/support/functions'
 
 const router = Router()
 
+router.get('/edition/:edition/year/:year/month/:month/day/:day/title/:title', async (req: Request, res: Response) => {
+  try {
+    const year = +req.params.year
+    const month = +req.params.month
+    const day = +req.params.day
+    const news = await models.News.findOne({
+      where: {
+        editionId: req.params.edition,
+        publicationDate: `${year}-${to2Letters(month)}-${to2Letters(day)}`,
+        titleUrl: req.params.title
+      }
+    })
+    res.send({ news })
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e)
+    res.statusCode = 500
+    res.send(e)
+  }
+})
+
 router.get('/year/:year/month/:month', async (req: Request, res: Response) => {
   try {
     // getting params
