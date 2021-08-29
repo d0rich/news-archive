@@ -86,4 +86,4 @@ router.get('/last/:lastNewsNumber', async (req: Request, res: Response) => {
   }
 })
 
-export const newsFeedRouter = router
+export const newsRouter = router

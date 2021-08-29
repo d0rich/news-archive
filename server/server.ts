@@ -3,7 +3,9 @@ import { Request, Response } from 'express'
 import { scheduleJob } from 'node-schedule'
 import { initDb } from './database/db_sync'
 import { parseAll } from './parsers'
-import { newsFeedRouter } from './api/newsFeedRouter'
+// import router
+import { newsRouter } from './api/newsRouter'
+import { editionsRouter } from './api/editionsRouter'
 
 try {
   require('dotenv').config()
@@ -19,7 +21,8 @@ scheduleJob('/15 * * * *', parseAll)
 app.get('/echo/:what', (req: Request, res: Response) => {
   res.json(req.params)
 })
-app.use('/news', newsFeedRouter)
+app.use('/news', newsRouter)
+app.use('/editions', editionsRouter)
 
 module.exports = {
   path: '/api',
