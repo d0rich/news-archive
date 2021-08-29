@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export const state = () => ({
   editions: []
 })
@@ -12,7 +10,12 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit ({ commit }) {
-    const response = await axios.get('/api/editions/all')
-    commit('setEditions', response.data.editions)
+    try {
+      const response = await this.$axios.$get('/editions/all')
+      commit('setEditions', response.editions)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e)
+    }
   }
 }

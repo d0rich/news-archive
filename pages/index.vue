@@ -1,5 +1,7 @@
 <template>
-  <Tutorial />
+  <div>
+    {{ $store.state.editions }}
+  </div>
 </template>
 
 <script lang="ts">
