@@ -10,7 +10,7 @@ export const getDynamicPageHTML = async (url: string) => {
   })
   const page = await browser.newPage()
   await page.goto(url)
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(5000)
   // @ts-ignore
   const html: string = await page.evaluate(() => document.querySelector('body').innerHTML)
   await page.close()
