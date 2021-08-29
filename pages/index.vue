@@ -25,22 +25,21 @@ export default Vue.extend({
       monthlyFeed: []
     }
   },
+  async fetch () {
+    this.monthlyFeed = await this.getMonthlyFeed({
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1
+    })
+  },
   methods: {
     ...mapActions({
       getMonthlyFeed: 'news/getMonthlyFeed'
     }),
     getDateNews (moment: Moment) {
-      return this.monthlyFeed.find(day => day.date ===
+      return this.monthlyFeed.find((day: any) => day.date ===
         `${moment.year()}-${to2Letters(moment.month() + 1)}-${to2Letters(moment.date())}`)
         ?.news
     }
-  },
-  // eslint-disable-next-line vue/order-in-components
-  async fetch (): Promise<void> | void {
-    this.monthlyFeed = await this.getMonthlyFeed({
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1
-    })
   }
 })
 </script>
