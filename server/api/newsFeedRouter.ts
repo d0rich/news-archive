@@ -49,4 +49,20 @@ router.get('/year/:year/month/:month', async (req: Request, res: Response) => {
   }
 })
 
+router.get('/last/:lastNewsNumber', async (req: Request, res: Response) => {
+  try {
+    const news = await models.News.findAll({
+      limit: +req.params.lastNewsNumber,
+      attributes: ['publicationDate', 'title', 'description', 'editionId'],
+      order: [['createdAt', 'DESC']]
+    })
+    res.send({ _count: +req.params.lastNewsNumber, news })
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e)
+    res.statusCode = 500
+    res.send(e)
+  }
+})
+
 export const newsFeedRouter = router
