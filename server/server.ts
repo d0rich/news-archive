@@ -16,7 +16,7 @@ const app = express()
 export const models = initDb()
 
 parseAll()
-scheduleJob('/15 * * * *', parseAll)
+scheduleJob('*/15 * * * *', parseAll)
 
 app.get('/echo/:what', (req: Request, res: Response) => {
   res.json(req.params)
