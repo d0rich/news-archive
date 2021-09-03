@@ -2,10 +2,19 @@
   <div>
     <a-calendar>
       <div slot="dateCellRender" slot-scope="value">
-        <div v-for="item in getDateNews(value)" :key="item.title">
-          {{ item.title }}
-          <hr>
-        </div>
+        <a-popover :title="value.calendar()">
+          <template slot="content">
+            <div v-for="item in getDateNews(value)" :key="item.title">
+              <b>{{ $store.state.editions.find(e => e.id === item.editionId).name }}</b>: {{ item.title }}
+              <hr>
+            </div>
+          </template>
+          <div v-if="getDateNews(value)">
+            <div v-if="getDateNews(value)[0]">
+              {{ getDateNews(value)[0].title }}
+            </div>
+          </div>
+        </a-popover>
       </div>
     </a-calendar>
   </div>
