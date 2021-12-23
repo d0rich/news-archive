@@ -50,7 +50,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
       primaryKey: true
     },
     titleUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       primaryKey: true
     },
@@ -64,19 +64,19 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
       }
     },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     html: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     sourceUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: true
     },
     locale: {
@@ -84,7 +84,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {
