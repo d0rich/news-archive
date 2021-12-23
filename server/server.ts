@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 // @ts-ignore
 import { scheduleJob } from 'node-schedule'
-import { initDb } from './database/db_sync'
+import { db } from './database/models'
 import { parseAll } from './parsers'
 // import router
 import { newsRouter } from './api/newsRouter'
@@ -13,7 +13,7 @@ try {
 
 const express = require('express')
 const app = express()
-export const models = initDb()
+export const models = db
 
 // @ts-ignore
 if (process.env.AUTO_PARSE_NEWS === '1') {
