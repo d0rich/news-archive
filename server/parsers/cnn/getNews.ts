@@ -13,6 +13,7 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
     // @ts-ignore
     const content: string = $('section#body-text').html()
     try {
+      const type = (await models.NewsTypes.findOrCreate({ where: { type: news.url?.split('/')[3] } }))[0]
       await models.News.create({
         publicationDate:
           `${news.publicationDate.getFullYear()}` +
@@ -25,13 +26,13 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
         description: `${convert(content).slice(0, 50)}...`,
         editionId: news.editionId,
         titleUrl: news.titleUrl,
-        sourceUrl: 'https://edition.cnn.com/' + news.url
+        sourceUrl: 'https://edition.cnn.com/' + news.url,
+        typeId: type.id
       })
       // eslint-disable-next-line no-console
       console.log(`Fresh news from CNN:\n   ${title}:\n   ${convert(content).slice(0, 100)}...`)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(`Failed to save CNN news (${e.message}):`, {
+      console.error(`Failed to save CNN news (${e}):`, {
         publicationDate:
           `${news.publicationDate.getFullYear()}` +
           `-${to2Letters(news.publicationDate.getMonth() + 1)}` +

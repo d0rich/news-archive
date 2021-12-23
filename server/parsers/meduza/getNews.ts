@@ -23,6 +23,7 @@ export const getMeduzaNews = async (newsToParse: NewsToCheck[]) => {
       `/${to2Letters(news.publicationDate.getMonth() + 1)}/` +
       `${to2Letters(news.publicationDate.getDate())}/${news.titleUrl}`)
     const meduzaNews: MeduzaNews = response.data.root
+    const type = (await models.NewsTypes.findOrCreate({ where: { type: 'news' } }))[0]
     await models.News.create({
       publicationDate: meduzaNews.pub_date,
       title: meduzaNews.title,
@@ -32,7 +33,8 @@ export const getMeduzaNews = async (newsToParse: NewsToCheck[]) => {
       description: meduzaNews.description,
       editionId: news.editionId,
       titleUrl: news.titleUrl,
-      sourceUrl: `https://meduza.io/${meduzaNews.url}`
+      sourceUrl: `https://meduza.io/${meduzaNews.url}`,
+      typeId: type.id
     })
     // eslint-disable-next-line no-console
     console.log(`Fresh news from Meduza:\n   ${meduzaNews.title}:\n   ${meduzaNews.description}`)

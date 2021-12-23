@@ -49,6 +49,7 @@ export class News extends Model<NewsAttributes, NewsCreationAttributes> implemen
   createType!: Sequelize.BelongsToCreateAssociationMixin<NewsTypes>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof News {
+    // @ts-ignore
     return News.init({
     publicationDate: {
       type: DataTypes.DATEONLY,

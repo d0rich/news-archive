@@ -8,17 +8,17 @@ module.exports = {
     await queryInterface.createTable('Editions', {
       id: {
         autoIncrement: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
       },
       name: {
-        type: DataTypes.STRING(100),
+        type: Sequelize.STRING(100),
         allowNull: false,
         unique: true
       },
       baseUrl: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       }
     })
@@ -26,17 +26,17 @@ module.exports = {
     // Table for news
     await queryInterface.createTable('News', {
       publicationDate: {
-        type: DataTypes.DATEONLY,
+        type: Sequelize.DATEONLY,
         allowNull: false,
         primaryKey: true
       },
       titleUrl: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         primaryKey: true
       },
       editionId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -45,27 +45,27 @@ module.exports = {
         }
       },
       title: {
-        type: DataTypes.STRING(1000),
+        type: Sequelize.STRING(1000),
         allowNull: false
       },
       content: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       html: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       sourceUrl: {
-        type: DataTypes.STRING(1000),
+        type: Sequelize.STRING(1000),
         allowNull: true
       },
       locale: {
-        type: DataTypes.STRING(2),
+        type: Sequelize.STRING(2),
         allowNull: false
       },
       description: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: true
       }
     });
@@ -84,7 +84,7 @@ module.exports = {
     await queryInterface.addIndex('News', {
       name: "news_createdat_index",
       fields: [
-        { name: "createdAt", order: "DESC" },
+        { name: "publicationDate", order: "DESC" },
       ]
     })
 
