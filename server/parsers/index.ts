@@ -6,17 +6,23 @@ import { EditionsNews } from './support/types'
 
 export const parseAll = async () => {
   // eslint-disable-next-line no-console
-  console.log('Staring checking news feed...')
+  console.info('Staring checking news feed...')
   const editionsAllNews: EditionsNews = {
     meduza: await checkMeduzaFeed(),
     cnn: await checkCnnFeed()
   }
-  let newsCount = editionsAllNews.meduza.length + editionsAllNews.cnn.length
   // eslint-disable-next-line no-console
-  console.log(`News found in feed: ${newsCount}`)
+  console.info('News found in feed:')
+  // eslint-disable-next-line no-console
+  console.info(`    Meduza: ${editionsAllNews.meduza.length}`)
+  // eslint-disable-next-line no-console
+  console.info(`    CNN: ${editionsAllNews.cnn.length}`)
   const editionsFreshNews: EditionsNews = await checkAllEditionsNews(editionsAllNews)
-  newsCount = editionsFreshNews.meduza.length + editionsFreshNews.cnn.length
   // eslint-disable-next-line no-console
-  console.log(`Fresh news: ${newsCount}`)
+  console.info('Fresh news:')
+  // eslint-disable-next-line no-console
+  console.info(`    Meduza: ${editionsFreshNews.meduza.length}`)
+  // eslint-disable-next-line no-console
+  console.info(`    CNN: ${editionsFreshNews.cnn.length}`)
   await getAllNews(editionsFreshNews)
 }
