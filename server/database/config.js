@@ -5,9 +5,9 @@ try {
 module.exports = {
   development: {
     logging: false,
-    username: process.env.DB_TEST_USER,
-    password: process.env.DB_TEST_PASSWORD,
-    database: process.env.DB_TEST_NAME,
+    username: process.env.DB_DEV_USER,
+    password: process.env.DB_DEV_PASSWORD,
+    database: process.env.DB_DEV_NAME,
     host: "ec2-54-76-249-45.eu-west-1.compute.amazonaws.com",
     dialect: "postgres",
     protocol: "postgres",
