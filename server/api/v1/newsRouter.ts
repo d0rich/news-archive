@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express'
 import { Op, literal } from 'sequelize'
-import { models } from '../server'
-import { to2Letters } from '../parsers/support/functions'
+import { models } from '../../server'
+import { to2Letters } from '../../parsers/support/functions'
 
 const router = Router()
 

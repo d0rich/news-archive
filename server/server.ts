@@ -4,8 +4,7 @@ import { scheduleJob } from 'node-schedule'
 import { db } from './database/models'
 import { parseAll } from './parsers'
 // import router
-import { newsRouter } from './api/newsRouter'
-import { editionsRouter } from './api/editionsRouter'
+import { v1Router } from './api/v1'
 
 try {
   require('dotenv').config()
@@ -24,8 +23,7 @@ if (process.env.AUTO_PARSE_NEWS === '1') {
 app.get('/echo/:what', (req: Request, res: Response) => {
   res.json(req.params)
 })
-app.use('/news', newsRouter)
-app.use('/editions', editionsRouter)
+app.use('/v1', v1Router)
 
 module.exports = {
   path: '/api',
