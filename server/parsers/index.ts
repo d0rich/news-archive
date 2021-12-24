@@ -6,7 +6,7 @@ import { EditionsNews } from './support/types'
 
 export const parseAll = async () => {
   // eslint-disable-next-line no-console
-  console.info('Staring checking news feed...')
+  console.info('Starting checking news feed...')
   const editionsAllNews: EditionsNews = {
     meduza: await checkMeduzaFeed(),
     cnn: await checkCnnFeed()
