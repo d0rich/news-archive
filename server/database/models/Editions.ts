@@ -36,6 +36,7 @@ export class Editions extends Model<EditionsAttributes, EditionsCreationAttribut
   countNewsses!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Editions {
+    // @ts-ignore
     return Editions.init({
     id: {
       autoIncrement: true,

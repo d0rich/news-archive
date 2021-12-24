@@ -24,6 +24,23 @@ module.exports = {
       }
     })
 
+    await queryInterface.addIndex('NewsTypes', {
+      name: "newstypes_pk",
+      unique: true,
+      fields: [
+        { name: "id" },
+      ]
+    })
+
+    await queryInterface.addIndex('NewsTypes', {
+      name: "newstypes_type_uindex",
+      unique: true,
+      fields: [
+        { name: "type" },
+      ]
+    })
+
+
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeColumn('News', 'typeId');

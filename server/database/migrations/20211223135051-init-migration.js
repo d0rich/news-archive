@@ -20,6 +20,16 @@ module.exports = {
       baseUrl: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
       }
     })
 
@@ -67,24 +77,48 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
         allowNull: true
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
       }
     });
 
-    await queryInterface.addConstraint('News', {
-      fields: ['editionId'],
-      type: 'foreign key',
-      name: 'news_editions_id_fk',
-      references: {
-        table: 'Editions',
-        field: 'id'
-      }
+    // Indexes
+    await queryInterface.addIndex('Editions', {
+      name: "sources_id_uindex",
+      unique: true,
+      fields: [
+        { name: "id" },
+      ]
     })
 
-    // Indexes
+    await queryInterface.addIndex('Editions', {
+      name: "sources_name_uindex",
+      unique: true,
+      fields: [
+        { name: "name" },
+      ]
+    })
+
+    await queryInterface.addIndex('Editions', {
+      name: "sources_pk",
+      unique: true,
+      fields: [
+        { name: "id" },
+      ]
+    })
+
     await queryInterface.addIndex('News', {
       name: "news_createdat_index",
       fields: [
-        { name: "publicationDate", order: "DESC" },
+        { name: "createdAt" },
       ]
     })
 
@@ -92,6 +126,16 @@ module.exports = {
       name: "news_locale_index",
       fields: [
         { name: "locale" },
+      ]
+    })
+
+    await queryInterface.addIndex('News', {
+      name: "news_pk",
+      unique: true,
+      fields: [
+        { name: "publicationDate" },
+        { name: "titleUrl" },
+        { name: "editionId" },
       ]
     })
 
