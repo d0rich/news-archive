@@ -34,7 +34,8 @@ export const getMeduzaNews = async (newsToParse: NewsToCheck[]) => {
       editionId: news.editionId,
       titleUrl: news.titleUrl,
       sourceUrl: `https://meduza.io/${meduzaNews.url}`,
-      typeId: type.id
+      // @ts-ignore
+      typeId: type.dataValues.id
     })
     // eslint-disable-next-line no-console
     console.log(`Fresh news from Meduza:\n   ${meduzaNews.title}:\n   ${meduzaNews.description}`)

@@ -27,7 +27,8 @@ export const getCnnNews = async (newsToParse: NewsToCheck[]) => {
         editionId: news.editionId,
         titleUrl: news.titleUrl,
         sourceUrl: 'https://edition.cnn.com/' + news.url,
-        typeId: type.id
+        // @ts-ignore
+        typeId: type.dataValues.id
       })
       // eslint-disable-next-line no-console
       console.log(`Fresh news from CNN:\n   ${title}:\n   ${convert(content).slice(0, 100)}...`)
