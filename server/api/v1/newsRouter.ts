@@ -11,6 +11,10 @@ router.get('/edition/:edition/year/:year/month/:month/day/:day/title/:title', as
     const month = +req.params.month
     const day = +req.params.day
     const news = await models.News.findOne({
+      include: [
+        { model: models.NewsTypes, as: 'type', attributes: ['id', 'type'] },
+        { model: models.Editions, as: 'edition', attributes: ['id', 'name'] }
+      ],
       where: {
         editionId: req.params.edition,
         publicationDate: `${year}-${to2Letters(month)}-${to2Letters(day)}`,
@@ -38,7 +42,11 @@ router.get('/year/:year/month/:month', async (req: Request, res: Response) => {
       const date = `${year}-${to2Letters(month)}-${to2Letters(day)}`
       const dailyNewsPromise = models.News.findAll({
         where: { publicationDate: { [Op.eq]: date } },
-        attributes: ['publicationDate', 'title', 'description', 'editionId'],
+        include: [
+          { model: models.NewsTypes, as: 'type', attributes: ['id', 'type'] },
+          { model: models.Editions, as: 'edition', attributes: ['id', 'name'] }
+        ],
+        attributes: ['publicationDate', 'title', 'description'],
         limit: 5,
         order: literal('random()')
       })
@@ -70,16 +78,51 @@ router.get('/year/:year/month/:month', async (req: Request, res: Response) => {
   }
 })
 
+router.get('/year/:year/month/:month/day/:day', async (req: Request, res: Response) => {
+  try {
+    const year = +req.params.year
+    const month = +req.params.month
+    const day = +req.params.day
+    const filters: any = {}
+    if (req.query.edition){filters.editionId = +req.query.edition}
+    if (req.query.type){filters.typeId = +req.query.type}
+    const news = await models.News.findAll({
+      attributes: ['publicationDate', 'title', 'description', 'titleUrl'],
+      include: [
+        { model: models.NewsTypes, as: 'type', attributes: ['id', 'type'] },
+        { model: models.Editions, as: 'edition', attributes: ['id', 'name'] }
+      ],
+      where: {
+        ...filters,
+        publicationDate: `${year}-${to2Letters(month)}-${to2Letters(day)}`,
+      },
+      order: [['publicationDate', 'DESC']]
+    })
+    res.send({ _count: news.length, news })
+  } catch (e) {
+    console.error(e)
+    res.statusCode = 500
+    res.send(e)
+  }
+})
+
 router.get('/last/:lastNewsNumber', async (req: Request, res: Response) => {
   try {
+    const filters: any = {}
+    if (req.query.edition){filters.editionId = +req.query.edition}
+    if (req.query.type){filters.typeId = +req.query.type}
     const news = await models.News.findAll({
       limit: +req.params.lastNewsNumber,
-      attributes: ['publicationDate', 'title', 'description', 'editionId'],
+      include: [
+        { model: models.NewsTypes, as: 'type', attributes: ['id', 'type'] },
+        { model: models.Editions, as: 'edition', attributes: ['id', 'name'] }
+      ],
+      attributes: ['publicationDate', 'title', 'description', 'titleUrl'],
+      where: filters,
       order: [['createdAt', 'DESC']]
     })
     res.send({ _count: +req.params.lastNewsNumber, news })
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     res.statusCode = 500
     res.send(e)
