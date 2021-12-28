@@ -118,6 +118,7 @@ router.get('/last/:lastNewsNumber', async (req: Request, res: Response) => {
         { model: models.Editions, as: 'edition', attributes: ['id', 'name'] }
       ],
       attributes: ['publicationDate', 'title', 'description', 'titleUrl'],
+      offset: +(req.query.offset || 0),
       where: filters,
       order: [['createdAt', 'DESC']]
     })
